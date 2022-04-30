@@ -1,11 +1,15 @@
-import { auth } from '../../firebase';
+import { useContext } from "react";
 import { signOut } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser} from "@fortawesome/free-solid-svg-icons";
 
+import { AppContext } from "./Layout";
+
 export default function Profile(){
-  const [user] = useAuthState(auth);
+  const state = useContext(AppContext);
+  const user = state.user;
+  const profile = state.profile;
+  
   return (
     <div className="dropdown dropdown-end p-2">
       <button tabIndex="0" className="px-4" type="button">
@@ -13,6 +17,10 @@ export default function Profile(){
       </button>
 
       <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-64">
+        {profile && profile.role && profile.role=='warehouse' && (
+          <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>  
+        )
+        }
         <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>
       </ul>
     </div>

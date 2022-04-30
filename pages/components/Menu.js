@@ -13,6 +13,19 @@ export default function Menu({ direction }){
     <ul tabIndex="0" className={"invisible md:visible dropdown-content menu p-2 shadow bg-base-100 rounded-box w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
       <li>
         <a>
+          {state.cat}
+          <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
+        </a>
+        <ul className="p-2 bg-base-100">
+          {state.cats.map((cat)=>(
+            <li key={cat.name}>
+              <a onClick={()=>{state.setCat(cat.name)}}>{cat.name}</a>
+            </li>
+          ))}
+        </ul>
+      </li>
+      <li>
+        <a>
           {state.date}
           <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
         </a>

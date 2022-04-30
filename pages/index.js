@@ -22,7 +22,7 @@ export default function Home() {
   }
   if (user) {
     return (
-      <Layout />
+      <Layout user={user}/>
     )
   }
   else {

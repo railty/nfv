@@ -1,3 +1,6 @@
+import { setDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+
 function pastDay(n){
   let d = new Date();
   d.setDate(d.getDate() - n);
@@ -7,5 +10,56 @@ function pastDay(n){
 
 export const dates = [pastDay(0), pastDay(1), pastDay(2), pastDay(3), pastDay(4)];
 
-export const stores = ['ALP', 'OFC', 'OFMM', 'WM1080', 'WM1116','WM1117','WM3135'];
+export const stores = ['alp', 'ofc', 'ofmm', 'wm1080', 'wm1116','wm1117','wm3135'];
 
+export const cats = [
+  { 
+    name: "fruits",
+    products: []
+  }, 
+  {
+    name: "vegetables",
+    products: []
+  }
+];
+
+export const initStore = async (date)=>{
+  for (let cat of cats){
+    cat.products = (await import(`../data/${cat.name}.json`)).default;
+  }
+  console.log("cats=", cats);
+
+  let i = 0;
+  let all0 = stores.reduce((last, store)=>{
+    last[store] = 0;
+    return last;
+  }, {});
+
+  for (const cat of cats){
+    for (const product of cat.products){
+      console.log(cat.name, date, product.name);
+      await setDoc(doc(db, date, cat.name, "products", product.code), {
+        code: product.code,
+        name: product.name,
+        warehouse: {
+          inventory: 0.0,
+          price: 0.0
+        },
+        order: 0.0,
+        inventory: all0,
+        orders: all0
+      });
+      i++;
+    }
+
+    let allWorking = stores.reduce((last, store)=>{
+      last[store] = "working";
+      return last;
+    }, {});
+
+    allWorking['warehouse'] = "working";
+    allWorking['buyer'] = "working";
+    await setDoc(doc(db, date, cat.name), allWorking);
+  }
+  console.log("success, total:", i);
+};
