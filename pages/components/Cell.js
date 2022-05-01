@@ -1,6 +1,6 @@
 export default function Cell({value, onChange}) {
   if (onChange) return (
-    <td className="tbl-cell">
+    <td className="tbl-cell w-12">
       <input className="small-input w-full" type="number" value={value} onChange={(e)=>onChange(e.target.value)} min="0"/>
     </td>
   )

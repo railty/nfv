@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import Profile from "./Profile";
 import Menu from "./Menu";
+import Table from "./Table";
 import Cell from "./Cell";
 import { dates, stores, initStore } from "../utils";
 import { AppContext } from "./Layout";
@@ -40,86 +41,121 @@ export default function Data() {
     }
     else{
       return (
-        <table className="w-full">
-        <thead>
-          <tr>
-            <th className="tbl-cell sticky top-0">Code</th>
-            <th className="tbl-cell sticky top-0">Name</th>
-            <th className={"w-12 sticky top-0 " + bg('warehouse')}>WH</th>
+        <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-0 overflow-y-scroll">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="tbl-cell w-12">Code</th>
+                  <th className="tbl-cell w-16">Name</th>
+                  <th className={"w-12 " + bg('warehouse')}>WH</th>
 
-            {['warehouse', 'buyer'].includes(state.role) && (
-              <>
-                <th className={"w-12 sticky top-0 "+bg('buyer')}>QTY</th>
-                <th className="tbl-cell w-16 sticky top-0">Sum</th>
-
-                {state.stores.map((store)=>{
-                  return (
-                    <th key={store} className={"sticky top-0 " + bg(store)} colSpan="2">{store.toUpperCase().replace(/^WM/, '')}</th>
-                  )
-                })}
-              </>
-            )}
-
-            {['store-buyer'].includes(state.role) && (
-              <th className={"sticky top-0 " + bg(state.store)} colSpan="2">{state.store}</th>
-            )}
-
-          </tr>
-        </thead>
-        <tbody>
-          {products ? (
-            products.map((p, idx)=>{
-              return (
-                <tr key={p.code}>
-                  <Cell value={p.code} />
-                  <Cell value={p.name} />
-
-                  {state.role == 'warehouse' ? (
-                    <Cell value={p.warehouse.inventory} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `warehouse.inventory`, parseFloat(v))} />
-                  ) : (
-                    <Cell value={p.warehouse.inventory} />
-                  )}
-
-                  {state.role == "store-buyer" ? (
+                  {['warehouse', 'buyer'].includes(state.role) && (
                     <>
-                      <Cell value={p.inventory[state.store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `inventory.${state.store}`, parseFloat(v))} />
-                      <Cell value={p.orders[state.store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `orders.${state.store}`, parseFloat(v))} />
-                    </>
-                  ) : (
-                    <>
-                      {state.role == "buyer" ? (
-                        <>
-                          <Cell value={p.order} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `order`, parseFloat(v))} />
-                          <Cell value={sum[idx]} />
+                      <th className={"w-12 "+bg('buyer')}>QTY</th>
+                      <th className="tbl-cell w-16">Sum</th>
 
-                          {allStores.map((store)=>{
-                            return [
-                              <Cell key={`${store}-inv`} value={p.inventory[store]} />,
-                              <Cell key={`${store}-order`} value={p.orders[store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `orders.${store}`, parseFloat(v))} />
-                            ]
-                          })}
-
-                        </>
-                      ) : (
-                        <>
-                          <Cell value={p.order} />
-                          <Cell value={sum[idx]} />
-                          {state.stores.map((store)=>{
-                            return [
-                              <Cell key={`${store}-inv`} value={p.inventory[store]} />,
-                              <Cell key={`${store}-order`} value={p.orders[store]} />
-                            ]
-                          })}
-                        </>
-                    )}
+                      {state.stores.map((store)=>{
+                        return (
+                          <th key={store} className={bg(store)} colSpan="2">{store.toUpperCase().replace(/^WM/, '')}</th>
+                        )
+                      })}
                     </>
                   )}
+
+                  {['store-buyer'].includes(state.role) && (
+                    <th className={" " + bg(state.store)} colSpan="2">{state.store}</th>
+                  )}
+
                 </tr>
-              )
-            })
-          ) : null}
-        </tbody>
-      </table>
+              </thead>
+            </table>
+          </div>
+  
+          <div className="flex-1 overflow-auto">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="tbl-cell w-12"></th>
+                  <th className="tbl-cell w-16"></th>
+                  <th className={"w-12 " + bg('warehouse')}></th>
+
+                  {['warehouse', 'buyer'].includes(state.role) && (
+                    <>
+                      <th className={"w-12 "+bg('buyer')}></th>
+                      <th className="tbl-cell w-16 "></th>
+
+                      {state.stores.map((store)=>{
+                        return (
+                          <th key={store} className={bg(store)} colSpan="2"></th>
+                        )
+                      })}
+                    </>
+                  )}
+
+                  {['store-buyer'].includes(state.role) && (
+                    <th className={bg(state.store)} colSpan="2"></th>
+                  )}
+
+                </tr>
+              </thead>
+
+              <tbody>
+                {products ? (
+                  products.map((p, idx)=>{
+                    return (
+                      <tr key={p.code}>
+                        <Cell value={p.code} />
+                        <Cell value={p.name} />
+
+                        {state.role == 'warehouse' ? (
+                          <Cell value={p.warehouse.inventory} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `warehouse.inventory`, parseFloat(v))} />
+                        ) : (
+                          <Cell value={p.warehouse.inventory} />
+                        )}
+
+                        {state.role == "store-buyer" ? (
+                          <>
+                            <Cell value={p.inventory[state.store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `inventory.${state.store}`, parseFloat(v))} />
+                            <Cell value={p.orders[state.store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `orders.${state.store}`, parseFloat(v))} />
+                          </>
+                        ) : (
+                          <>
+                            {state.role == "buyer" ? (
+                              <>
+                                <Cell value={p.order} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `order`, parseFloat(v))} />
+                                <Cell value={sum[idx]} />
+
+                                {allStores.map((store)=>{
+                                  return [
+                                    <Cell key={`${store}-inv`} value={p.inventory[store]} />,
+                                    <Cell key={`${store}-order`} value={p.orders[store]} onChange={(v)=>updateProduct(state.date, state.cat, p.code, `orders.${store}`, parseFloat(v))} />
+                                  ]
+                                })}
+
+                              </>
+                            ) : (
+                              <>
+                                <Cell value={p.order} />
+                                <Cell value={sum[idx]} />
+                                {state.stores.map((store)=>{
+                                  return [
+                                    <Cell key={`${store}-inv`} value={p.inventory[store]} />,
+                                    <Cell key={`${store}-order`} value={p.orders[store]} />
+                                  ]
+                                })}
+                              </>
+                          )}
+                          </>
+                        )}
+                      </tr>
+                    )
+                  })
+                ) : null}
+              </tbody>
+            </table>
+          </div>
+        </div>      
       );
     }
   }

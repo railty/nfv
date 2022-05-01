@@ -18,22 +18,24 @@ export default function Layout({ user }) {
   const [store, setStore] = useState(stores[0]);
   const [showStores, setShowStores] = useState(stores.map((st)=>({name:st, show:true})));
 
-
   const state = {user, profile, role, date, setDate, store, setStore, showStores, setShowStores, cats, cat, setCat, stores};
 
   return (
-    <div>
-      <Head>
-        <title>NFV</title>
-        <meta name="description" content="NFV" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <AppContext.Provider value={state}>
+      <div className="flex flex-col h-screen">
+        <Head>
+          <title>NFV</title>
+          <meta name="description" content="NFV" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <AppContext.Provider value={state}>
-        <Navbar/>
-        <Data />
-      </AppContext.Provider>
-      
-    </div>
+        <div className="bg-red-100 h-20">
+          <Navbar/>
+        </div>
+        <div className="flex-1 flex flex-col min-h-0">
+          <Data />
+        </div>          
+      </div>
+    </AppContext.Provider>    
   )
 }
