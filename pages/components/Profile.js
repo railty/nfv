@@ -8,7 +8,6 @@ import { AppContext } from "./Layout";
 export default function Profile(){
   const state = useContext(AppContext);
   const user = state.user;
-  const profile = state.profile;
   
   return (
     <div className="dropdown dropdown-end p-2">
@@ -17,10 +16,6 @@ export default function Profile(){
       </button>
 
       <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-64">
-        {profile && profile.role && profile.role=='warehouse' && (
-          <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>  
-        )
-        }
         <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>
       </ul>
     </div>

@@ -7,28 +7,46 @@ export default function Home() {
     {name:'b',show:false},
   ]);
 
+  const tbl = [];
+  for (let i=0; i<1000; i++) tbl.push({name: i, value: i});
+
   return (
-    <>
-      {stores.map((st)=>(
-        <p key={st.name}>{st.name}:{st.show.toString()}</p>
-      ))}
-      {stores.map((st, i)=>(
-        <input key={st.name} type="checkbox" checked={st.show} className="checkbox checkbox-sm checkbox-primary" onChange={()=>{
-          let s = stores;
-          s[i] = {name:st.name, show:!(st.show)};
-          console.log(s);
-          setStores(s);
-        }}/> 
-      ))}
-      <button className="btn" onClick={()=>{
-        console.log("xxxx");
-        let x = [...stores];
-        console.log(x);
-        x[1].name = "xx";
-        x[1].show = !(x[1].show);
-        console.log(x);
-        setStores(x);
-      }}>test</button>
-    </>
+    <div className="bg-blue-200 flex flex-col h-screen">
+	  	<div className="bg-red-100 h-8">head</div>
+      <div className="bg-red-200 flex-1 flex flex-col min-h-0">
+
+      <div className="bg-blue-100 flex-0">
+        <table className="border">
+          <thead>
+            <tr className=''>
+              <th className="tbl-cell w-64">Name</th>
+              <th className="tbl-cell w-64">Value</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div className="bg-blue-200 flex-1 overflow-auto ">
+
+        <table className="border">
+          <thead>
+            <tr className=''>
+              <th className="tbl-cell w-64"></th>
+              <th className="tbl-cell w-64"></th>
+            </tr>
+          </thead>
+          <tbody className=''>
+            {tbl.map((d)=>(
+              <tr>
+                <td className="tbl-cell">{d.name}</td>
+                <td className="tbl-cell">{d.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+      </div>
+      </div>
+      <div className="bg-red-300 h-8">foot</div>
+    </div>
   )
 }

@@ -29,7 +29,7 @@ export default function Menu({ direction }){
           {state.date}
           <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
         </a>
-        <ul className="p-2 bg-base-100">
+        <ul className="p-2 bg-base-100 w-64">
           {dates.map((dt)=>(
             <li key={dt}>
               <a onClick={()=>{state.setDate(dt)}}>{dt}</a>
@@ -37,28 +37,6 @@ export default function Menu({ direction }){
           ))}
         </ul>
       </li>
-
-      <li>
-        <a>
-          Display
-          <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
-        </a>
-        <ul className="p-2 bg-base-100">
-          {state.showStores.map((st, i)=>(
-            <li key={st.name}>
-              <label className="label cursor-pointer">
-                <input type="checkbox" checked={st.show} className="checkbox checkbox-sm checkbox-primary" onChange={()=>{
-                  let s = [...state.showStores];
-                  s[i] = {name: st.name, show: !st.show};
-                  state.setShowStores(s);
-                }}/>
-                <span className="label-text">{st.name}:</span>                     
-              </label>
-              </li>
-          ))}
-        </ul>
-      </li>
-
     </ul>
   )
 };

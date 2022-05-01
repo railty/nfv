@@ -11,13 +11,15 @@ export const AppContext = createContext();
 
 export default function Layout({ user }) {
   const [profile, loading, error ] = useDocumentData(doc(db, "profiles", user?.email), {snapshotListenOptions: { includeMetadataChanges: true }});
+  const role = profile?.role;
 
   const [cat, setCat] = useState(cats[0].name);
   const [date, setDate] = useState(dates[0]);
   const [store, setStore] = useState(stores[0]);
   const [showStores, setShowStores] = useState(stores.map((st)=>({name:st, show:true})));
 
-  const state = {user, profile, date, setDate, store, setStore, showStores, setShowStores, cats, cat, setCat};
+
+  const state = {user, profile, role, date, setDate, store, setStore, showStores, setShowStores, cats, cat, setCat, stores};
 
   return (
     <div>

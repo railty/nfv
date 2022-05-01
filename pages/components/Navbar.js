@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import Profile from "./Profile";
 import Menu from "./Menu";
-import Toolbar from "./Toolbar";
 import { dates, stores } from "../utils";
 import { AppContext } from "./Layout";
 
@@ -23,7 +22,6 @@ export default function Navbar() {
       
       <div className="flex-1">
         <img className="invisible md:visible" src="logo.png"/>
-        <Toolbar />
         <Menu direction="h" />
       </div>
 
