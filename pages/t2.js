@@ -1,8 +1,9 @@
 import { useEffect, useState, useContext } from 'react'
-import Table from './components/Table';
+
 
 export default function Home() {
+  const [x, setX] = useState(123);
   return (
-    <Table />
+    <p>aaaa</p>
   )
 }

@@ -11,25 +11,14 @@ import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firesto
 import { db } from '../../firebase';
 import { query, orderBy, limit, getFirestore, collection, doc, getDoc, setDoc, getDocs } from 'firebase/firestore';
 
-export default function Data() {
+export default function Content() {
   const state = useContext(AppContext);
-  const [products, loading, error] = useCollectionData(collection(db, state.date, state.cat, "products"), {snapshotListenOptions: { includeMetadataChanges: true }});
-  const [jobStates ] = useDocumentData(doc(db, state.date, state.cat), {snapshotListenOptions: { includeMetadataChanges: true }});
-
-  const sum = products?.map((p)=>{
-    let s = 0;
-    for (let store of state.stores){
-      s = s + p.orders[store];
-    }
-    return s;
-  })
 
   const bg = (store) => {
     let b = "tbl-cell w-20 ";
     b = b + (jobStates && jobStates[store]=="completed" ? "bg-green-200" : "bg-red-200");
     return b;
   }
-
 
   if (products){
     if (products.length==0){
