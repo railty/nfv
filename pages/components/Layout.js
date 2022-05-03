@@ -15,19 +15,17 @@ export default function Layout({ user, profile }) {
   const role = profile.role;
   const [cat, setCat] = useState(cats[0].name);
   const [date, setDate] = useState(dates[0]);
-  const [store, setStore] = useState(stores[0]);
-  const [headers, setHeaders] = useState(()=>{getHeaders(profile, date, cat)});
+  const [stores, setStores] = useState([...profile.stores]);
+  const [headers, setHeaders] = useState(()=>{getHeaders(profile, date, cat, stores)});
 
-  const [showStores, setShowStores] = useState(stores.map((st)=>({name:st, show:true})));
   const [products] = useCollectionData(collection(db, date, cat, "products"), {snapshotListenOptions: { includeMetadataChanges: true }});
   const [jobStates ] = useDocumentData(doc(db, date, cat), {snapshotListenOptions: { includeMetadataChanges: true }});
 
   useEffect(()=>{
-    setHeaders(getHeaders(profile, date, cat));
+    setHeaders(getHeaders(profile, date, cat, stores));
   }, [date, cat]);
 
-      
-  const state = {user, profile, role, date, setDate, store, setStore, showStores, setShowStores, cats, cat, setCat, stores, headers, products};
+  const state = {user, profile, role, date, setDate, cats, cat, setCat, stores, setStores, headers, products};
 
   return (
     <AppContext.Provider value={state}>

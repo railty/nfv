@@ -10,13 +10,13 @@ export default function Menu({ direction }){
   direction = direction || 'v';
 
   return (
-    <ul tabIndex="0" className={"invisible md:visible dropdown-content menu  w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
+    <ul tabIndex="0" className={"bg-blue-200 dropdown-content menu w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
       <li>
         <a>
           {state.cat}
           <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
         </a>
-        <ul className="p-2 bg-base-100">
+        <ul className="p-2 bg-blue-200">
           {state.cats.map((cat)=>(
             <li key={cat.name}>
               <a onClick={()=>{state.setCat(cat.name)}}>{cat.name}</a>
@@ -29,7 +29,7 @@ export default function Menu({ direction }){
           {state.date}
           <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
         </a>
-        <ul className="p-2 bg-base-100 w-64">
+        <ul className="p-2 bg-blue-200 w-64">
           {dates.map((dt)=>(
             <li key={dt}>
               <a onClick={()=>{state.setDate(dt)}}>{dt}</a>

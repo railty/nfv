@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <div className="navbar bg-base-500">
-      <div className="flex-none visible md:invisible">
+      <div className="flex-none flex md:hidden">
         <div className="dropdown dropdown p-2">
           <button tabIndex="0" className="px-4" type="button">
             <FontAwesomeIcon icon={faBars} fontSize="24" color="blue" />
@@ -21,8 +21,10 @@ export default function Navbar() {
       </div>
       
       <div className="flex-1">
-        <img className="invisible md:visible" src="logo.png"/>
-        <Menu direction="h" />
+        <div className="hidden md:flex">
+          <img className="" src="logo.png"/>
+          <Menu direction="h" />
+        </div>
       </div>
 
       <div className="flex-none">

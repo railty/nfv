@@ -10,7 +10,7 @@ function pastDay(n){
 
 export const dates = [pastDay(0), pastDay(1), pastDay(2), pastDay(3), pastDay(4)];
 
-export const stores = ['1970', '888', '250', '1080', '1116','1117','3135'];
+//export const stores = ['1970', '888', '250', '1080', '1116','1117','3135'];
 
 export const cats = [
   { 

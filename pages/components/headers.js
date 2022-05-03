@@ -1,6 +1,6 @@
 import { stores, updateProduct } from "../utils";
 
-export function getHeaders(profile, date, cat){
+export function getHeaders(profile, date, cat, stores){
   const funUpdate = async function(id, v){    //arrow function won't work as no this exist
     await updateProduct(date, cat, id, this.field, parseFloat(v));
   }
@@ -32,7 +32,6 @@ export function getHeaders(profile, date, cat){
     label: 'Order',
     field: 'order',
     klass: 'tbl-cell w-12',
-    update: funUpdate
   };
 
   const sum = {
@@ -47,6 +46,7 @@ export function getHeaders(profile, date, cat){
     klass: 'tbl-cell w-12',
   };
 
+  console.log("stores=", stores);
   if (profile.role == "warehouse"){
     headers.push(order);
     headers.push(sum);
