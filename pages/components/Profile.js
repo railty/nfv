@@ -15,9 +15,9 @@ export default function Profile(){
         <FontAwesomeIcon icon={faUser} fontSize="24" color="blue" />
       </button>
 
-      <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-64">
-        <li><a>Version: 2020.05.03</a></li>
-        <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>
+      <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-blue-100 rounded-box w-64 ">
+        <li className="border border-b-solid border-b-blue-400"><a>Version: 2020.05.03</a></li>
+        <li className=""><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>
       </ul>
     </div>
   )

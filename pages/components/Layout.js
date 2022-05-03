@@ -38,7 +38,7 @@ export default function Layout({ user, profile }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <div className="bg-red-100 h-20">
+        <div className="h-14">
           <Navbar/>
         </div>
         <div className="flex-1 flex flex-col min-h-0">

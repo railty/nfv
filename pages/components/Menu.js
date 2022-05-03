@@ -10,7 +10,7 @@ export default function Menu({ direction }){
   direction = direction || 'v';
 
   return (
-    <ul tabIndex="0" className={"invisible md:visible dropdown-content menu p-2 shadow bg-base-100 rounded-box w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
+    <ul tabIndex="0" className={"invisible md:visible dropdown-content menu  w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
       <li>
         <a>
           {state.cat}
