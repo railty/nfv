@@ -20,10 +20,8 @@ export default function Content() {
     return b;
   }
 
-  console.log(state.tblProducts);
-
-  if (state.tblProducts){
-    if (state.tblProducts.length==0){
+  if (state.products){
+    if (state.products.length==0){
       return (
         <div className="flex justify-center items-center mt-20 ">
           <button className="btn btn-primary" onClick={()=>initStore(state.date)}>Init {state.date}</button>
@@ -32,7 +30,7 @@ export default function Content() {
     }
     else{
       return (
-        <Table head={state.tblHeaders} body={state.tblProducts}/>
+        <Table cols={state.headers} rows={state.products}/>
       );
     }
   }

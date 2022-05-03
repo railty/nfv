@@ -10,7 +10,7 @@ function pastDay(n){
 
 export const dates = [pastDay(0), pastDay(1), pastDay(2), pastDay(3), pastDay(4)];
 
-export const stores = ['alp', 'ofc', 'ofmm', 'wm1080', 'wm1116','wm1117','wm3135'];
+export const stores = ['1970', '888', '250', '1080', '1116','1117','3135'];
 
 export const cats = [
   { 
@@ -37,7 +37,7 @@ export const initStore = async (date)=>{
 
   for (const cat of cats){
     for (const product of cat.products){
-      console.log(cat.name, date, product.name);
+      //console.log(cat.name, date, product.name);
       await setDoc(doc(db, date, cat.name, "products", product.code), {
         code: product.code,
         name: product.name,
@@ -63,3 +63,16 @@ export const initStore = async (date)=>{
   }
   console.log("success, total:", i);
 };
+
+export const updateProduct = async (date, cat, code, field, value)=>{
+  console.log(`update ${field} to ${value}`);
+  const v = {};
+  v[field] = value;
+  await updateDoc(doc(db, date, cat, "products", code), v);
+}
+
+export const updateState = async (date, cat, store, state)=>{
+  const v = {};
+  v[store] = state;
+  await updateDoc(doc(db, date, cat), v);
+}

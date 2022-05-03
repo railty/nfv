@@ -1,14 +1,14 @@
-export default function Table({ body, head }) {
-  console.log("body=", body);
+import Cell from "./Cell";
 
-  if (body && body.length>0) return (
+export default function Table({ rows, cols }) {
+  if (rows && rows.length>0) return (
     <div className="flex-1 flex flex-col min-h-0">
       <div className="flex-0">
         <table className="border">
           <thead>
             <tr className=''>
-              {head.map((h, i)=>(
-                <th key={i} className={h.klass}>{h.label}</th>
+              {cols.map((col, i)=>(
+                <th key={i} className={col.klass}>{col.label}</th>
               ))}
             </tr>
           </thead>
@@ -19,23 +19,21 @@ export default function Table({ body, head }) {
         <table className="border">
           <thead>
             <tr className=''>
-                {head.map((h, i)=>(
-                  <th key={i} className={h.klass}></th>
+                {cols.map((col, i)=>(
+                  <th key={i} className={col.klass}></th>
                 ))}
               </tr>
           </thead>
 
           <tbody className=''>
-            {body.map((d)=>{
+            {rows.map((row, i)=>{
               return (
-                <tr className=''>
-                  {head.map((h)=>{
-                    return (
-                      <td className="tbl-cell">
-                        {d[h.field]}
-                      </td>
-                    )
-                  })}
+                <tr key={i} className=''>
+                  {cols.map((col, k)=>(
+                    <td key={k} className="tbl-cell">
+                      <Cell row={row} col={col}/>  
+                    </td>
+                  ))}
                 </tr>
               )
             })}

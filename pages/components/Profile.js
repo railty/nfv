@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { signOut } from 'firebase/auth';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser} from "@fortawesome/free-solid-svg-icons";
-
+import { auth } from '../../firebase';
 import { AppContext } from "./Layout";
 
 export default function Profile(){
@@ -16,6 +16,7 @@ export default function Profile(){
       </button>
 
       <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-64">
+        <li><a>Version: 2020.05.03</a></li>
         <li><a onClick={()=>{signOut(auth)}}>Logout as {user.email}</a></li>
       </ul>
     </div>
