@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faFlagCheckered, faXmark, faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { AppContext } from "./AppData";
-import { dates, updateState } from "../utils";
+import { dates, cats, updateState } from "../utils";
 import Profile from "./Profile";
 
 export default function Menu({ direction }){
@@ -18,7 +18,7 @@ export default function Menu({ direction }){
           <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
         </a>
         <ul className="p-2 bg-blue-200">
-          {state.cats.map((cat)=>(
+          {cats.map((cat)=>(
             <li key={cat.name}>
               <a onClick={()=>{state.setCat(cat.name)}}>{cat.name}</a>
             </li>
@@ -53,7 +53,6 @@ export default function Menu({ direction }){
                   e.preventDefault();
                   let stores = state.stores;
                   stores[i].show = !(stores[i].show);
-                  console.log("1111111", stores);
                   state.setStores([...stores]);
                   return false;
                 }}>
@@ -69,8 +68,8 @@ export default function Menu({ direction }){
       <li className="bg-blue-400">
         <a className="" onClick={()=>{
           let store;
-          if (state.role == 'warehouse') store = 'warehouse';
-          else if (state.role == 'buyer') store = 'buyer';
+          if (state.profile.role == 'warehouse') store = 'warehouse';
+          else if (state.profile.role == 'buyer') store = 'buyer';
           else store = state.stores[0].name;
 
           updateState(state.date, state.cat, store, 'completed');

@@ -27,7 +27,6 @@ export const initStore = async (date, stores)=>{
   for (let cat of cats){
     cat.products = (await import(`../data/${cat.name}.json`)).default;
   }
-  console.log("cats=", cats);
 
   let i = 0;
   let all0 = stores.reduce((last, store)=>{
@@ -36,6 +35,7 @@ export const initStore = async (date, stores)=>{
   }, {});
 
   for (const cat of cats){
+    console.log("cat=", cat);
     for (const product of cat.products){
       //console.log(cat.name, date, product.name);
       await setDoc(doc(db, date, cat.name, "products", product.code), {

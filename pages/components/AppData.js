@@ -5,7 +5,6 @@ import ScreenMessage from "./ScreenMessage";
 import { dates, cats } from "../utils";
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import { collection, doc } from 'firebase/firestore';
-import { getHeaders } from "./headers";
 
 export const AppContext = createContext();
 
@@ -26,16 +25,9 @@ export default function AppData({ user }) {
     })));
   }, [profile]);
 
-  useEffect(()=>{
-    if (stores && jobStates && products) setHeaders(getHeaders(profile, date, cat, stores, jobStates));
-  }, [date, cat, stores, jobStates, products]);
+  const state = { user, profile, date, setDate, cat, setCat, stores, setStores, headers, products, jobStates };
 
-  const state = {
-    user, profile, date, setDate, cats, cat, setCat, stores, setStores, headers, products,
-    role: profile?.role,
-  };
-
-  if (headers) return (
+  if (profile && stores && products && jobStates) return (
     <AppContext.Provider value={state}>
       <Layout />
     </AppContext.Provider>    

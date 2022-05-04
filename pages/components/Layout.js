@@ -2,11 +2,8 @@ import { useContext } from "react";
 import Head from 'next/head'
 import Navbar from "./Navbar"
 import Content from "./Content"
-import { AppContext } from "./AppData";
 
 export default function Layout() {
-  const state = useContext(AppContext);
-
   return (
     <div className="flex flex-col h-screen">
       <Head>
