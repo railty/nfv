@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useDocumentData, useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import Login from "./components/Login";
 
 const allStores = ['1970', '888', '250', '1080', '1116', '1117', '3135'];
 function Profiles({ user }) {
