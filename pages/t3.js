@@ -1,36 +1,55 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, createContext } from 'react'
 import { db } from '../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { doc, getDoc, updateDoc, collection } from 'firebase/firestore';
+import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 
-function Data({ user }) {
+function Layout() {
+  const state = useContext(AppContext);
+
+  console.log(state.products.length);
+  console.log(state.jobStates['888']);
+  
+  const test = ()=>{
+    state.setDate('2022-05-02');
+  }
+
+  return (
+    <div className="bg-blue-200 flex flex-col h-screen">
+      <p>250 - {state.jobStates['250']}</p>
+      <p>888 - {state.jobStates['888']}</p>
+      <p>888 - {state.products.length}</p>
+      <p>888 - {state.user.email}</p>
+      <p>888 - {state.profile.role}</p>
+
+      <button className="btn" onClick={test}>test</button>
+    </div>
+  );
+}
+
+const AppContext = createContext();
+
+function AppState({ user }) {
   const [date, setDate] = useState('2022-05-03');
+  const [cat, setCat] = useState('fruits');
 
-  const [ jobStates ] = useDocumentData(doc(db, date, 'fruits'));
+  const [profile] = useDocumentData(doc(db, "profiles", user.email), {snapshotListenOptions: { includeMetadataChanges: true }});
+  const [products] = useCollectionData(collection(db, date, cat, "products"));
+  const [jobStates ] = useDocumentData(doc(db, date, cat));
 
-  const test = async ()=>{
-    setDate('2022-05-02');
-  }
+  const state = {user, profile, date, setDate, cat, setCat, products, jobStates};
 
-  if (jobStates){
-    console.log("jobStates=", jobStates['250']);
-    console.log("jobStates=", jobStates['888']);
-    return (
-      <div className="bg-blue-200 flex flex-col h-screen">
-        <p>250 - {jobStates['250']}</p>
-        <p>888 - {jobStates['888']}</p>
-
-        <button className="btn" onClick={test}>test</button>
-      </div>
-    );
-  }
-  else return null;
+  if (profile && products && jobStates) return (
+    <AppContext.Provider value={state}>
+      <Layout />
+    </AppContext.Provider>
+  )
+  else  return <div>Loading</div>;
 }
 
 export default function Home() {
   const [ user ] = useAuthState(auth);
-  if ( user ) return ( <Data user={user}/>);
-  else  return null;
+  if ( user ) return (<AppState user={user} />);
+  else  return <div>Loading</div>;
 }
