@@ -40,7 +40,7 @@ export default function Menu({ direction }){
         </ul>
       </li>
 
-      {state.stores.length > 1 && (
+      {state.stores.length > 11 && (
         <li>
           <a>
             stores
