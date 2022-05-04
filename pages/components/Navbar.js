@@ -4,7 +4,7 @@ import { faBars, faUser, faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import Profile from "./Profile";
 import Menu from "./Menu";
 import { dates, stores } from "../utils";
-import { AppContext } from "./Layout";
+import { AppContext } from "./AppData";
 
 export default function Navbar() {
   const state = useContext(AppContext);

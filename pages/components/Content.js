@@ -1,15 +1,7 @@
 import { useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUser, faCaretDown} from "@fortawesome/free-solid-svg-icons";
-import Profile from "./Profile";
-import Menu from "./Menu";
 import Table from "./Table";
-import Cell from "./Cell";
-import { dates, stores, initStore } from "../utils";
-import { AppContext } from "./Layout";
-import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
-import { db } from '../../firebase';
-import { query, orderBy, limit, getFirestore, collection, doc, getDoc, setDoc, getDocs } from 'firebase/firestore';
+import { initStore } from "../utils";
+import { AppContext } from "./AppData";
 
 export default function Content() {
   const state = useContext(AppContext);

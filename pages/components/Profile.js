@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser} from "@fortawesome/free-solid-svg-icons";
 import { auth } from '../../firebase';
-import { AppContext } from "./Layout";
+import { AppContext } from "./AppData";
 
 export default function Profile(){
   const state = useContext(AppContext);

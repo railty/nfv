@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faFlagCheckered, faXmark, faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { AppContext } from "./Layout";
+import { AppContext } from "./AppData";
 import { dates, updateState } from "../utils";
 import Profile from "./Profile";
 
