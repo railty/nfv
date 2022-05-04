@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faFlagCheckered, faXmark, faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { AppContext } from "./Layout";
-import { dates, stores } from "../utils";
+import { dates, updateState } from "../utils";
+import Profile from "./Profile";
 
 export default function Menu({ direction }){
   const state = useContext(AppContext);
@@ -10,7 +11,7 @@ export default function Menu({ direction }){
   direction = direction || 'v';
 
   return (
-    <ul tabIndex="0" className={"bg-blue-200 dropdown-content menu w-80 " + (direction=='h' ? 'menu-horizontal' : '') }>
+    <ul tabIndex="0" className={"bg-blue-200 dropdown-content menu w-100 " + (direction=='h' ? 'menu-horizontal' : '') }>
       <li>
         <a>
           {state.cat}
@@ -24,6 +25,7 @@ export default function Menu({ direction }){
           ))}
         </ul>
       </li>
+
       <li>
         <a>
           {state.date}
@@ -37,6 +39,46 @@ export default function Menu({ direction }){
           ))}
         </ul>
       </li>
+
+      {state.stores.length > 1 && (
+        <li>
+          <a>
+            stores
+            <FontAwesomeIcon icon={direction=='h' ? faCaretDown : faCaretRight} fontSize="24" />
+          </a>
+          <ul className="menu menu-vertical p-2 bg-blue-200 w-40">
+            {state.stores.map((store, i)=>(
+              <li className="" key={i}>
+                <a onClick={(e)=>{
+                  e.preventDefault();
+                  let stores = state.stores;
+                  stores[i].show = !(stores[i].show);
+                  console.log("1111111", stores);
+                  state.setStores([...stores]);
+                  return false;
+                }}>
+                  {store.show ? <FontAwesomeIcon icon={faCheck} fontSize="24" /> : <FontAwesomeIcon icon={faXmark} fontSize="24" />}
+                  {store.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      )}
+
+      <li className="bg-blue-400">
+        <a className="" onClick={()=>{
+          let store;
+          if (state.role == 'warehouse') store = 'warehouse';
+          else if (state.role == 'buyer') store = 'buyer';
+          else store = state.stores[0].name;
+
+          updateState(state.date, state.cat, store, 'completed');
+        }}>
+          <FontAwesomeIcon icon={faFlagCheckered} fontSize="24" />
+        </a>
+      </li>
+
     </ul>
   )
 };

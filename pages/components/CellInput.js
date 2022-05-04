@@ -32,5 +32,5 @@ export default function CellInput({initValue, row, col}) {
 
   //if editable
   //update with id from hardcoded code field
-  return (<input className="small-input w-full" type="number" value={value} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} min="0"/>);
+  return (<input className="small-input w-full bg-blue-200" type="number" value={value} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} min="0"/>);
 }

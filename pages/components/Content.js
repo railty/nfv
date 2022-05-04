@@ -14,17 +14,11 @@ import { query, orderBy, limit, getFirestore, collection, doc, getDoc, setDoc, g
 export default function Content() {
   const state = useContext(AppContext);
 
-  const bg = (store) => {
-    let b = "tbl-cell w-20 ";
-    b = b + (jobStates && jobStates[store]=="completed" ? "bg-green-200" : "bg-red-200");
-    return b;
-  }
-
   if (state.products){
     if (state.products.length==0){
       return (
         <div className="flex justify-center items-center mt-20 ">
-          <button className="btn btn-primary" onClick={()=>initStore(state.date)}>Init {state.date}</button>
+          <button className="btn btn-primary" onClick={()=>initStore(state.date, state.stores)}>Init {state.date}</button>
         </div>
       )
     }

@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 import Head from 'next/head'
 import Navbar from "./Navbar"
 import Content from "./Content"
-import { dates, stores, cats } from "../utils";
+import { dates, cats } from "../utils";
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import { collection, doc } from 'firebase/firestore';
 import { updateProduct } from "../utils";
@@ -15,15 +15,22 @@ export default function Layout({ user, profile }) {
   const role = profile.role;
   const [cat, setCat] = useState(cats[0].name);
   const [date, setDate] = useState(dates[0]);
-  const [stores, setStores] = useState([...profile.stores]);
-  const [headers, setHeaders] = useState(()=>{getHeaders(profile, date, cat, stores)});
+  const [stores, setStores] = useState(()=>{
+    return profile.stores.map((store)=>{
+      return {
+        name: store,
+        show: true
+      }
+    });
+  });
 
+  const [headers, setHeaders] = useState(()=>{getHeaders(profile, date, cat, stores)});
   const [products] = useCollectionData(collection(db, date, cat, "products"), {snapshotListenOptions: { includeMetadataChanges: true }});
   const [jobStates ] = useDocumentData(doc(db, date, cat), {snapshotListenOptions: { includeMetadataChanges: true }});
 
   useEffect(()=>{
-    setHeaders(getHeaders(profile, date, cat, stores));
-  }, [date, cat]);
+    setHeaders(getHeaders(profile, date, cat, stores, jobStates));
+  }, [date, cat, stores, jobStates]);
 
   const state = {user, profile, role, date, setDate, cats, cat, setCat, stores, setStores, headers, products};
 

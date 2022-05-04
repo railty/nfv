@@ -23,7 +23,7 @@ export const cats = [
   }
 ];
 
-export const initStore = async (date)=>{
+export const initStore = async (date, stores)=>{
   for (let cat of cats){
     cat.products = (await import(`../data/${cat.name}.json`)).default;
   }
@@ -31,7 +31,7 @@ export const initStore = async (date)=>{
 
   let i = 0;
   let all0 = stores.reduce((last, store)=>{
-    last[store] = 0;
+    last[store.name] = 0;
     return last;
   }, {});
 
@@ -53,7 +53,7 @@ export const initStore = async (date)=>{
     }
 
     let allWorking = stores.reduce((last, store)=>{
-      last[store] = "working";
+      last[store.name] = "working";
       return last;
     }, {});
 

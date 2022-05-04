@@ -1,6 +1,7 @@
-import { stores, updateProduct } from "../utils";
+import { app } from "../../firebase";
+import { updateProduct } from "../utils";
 
-export function getHeaders(profile, date, cat, stores){
+export function getHeaders(profile, date, cat, stores, jobStates){
   const funUpdate = async function(id, v){    //arrow function won't work as no this exist
     await updateProduct(date, cat, id, this.field, parseFloat(v));
   }
@@ -20,11 +21,13 @@ export function getHeaders(profile, date, cat, stores){
       label: 'WH#',
       field: 'warehouse.inventory',
       klass: 'tbl-cell w-12',
+      bg: (jobStates && jobStates['warehouse']=='completed' ? ' bg-blue-200' : ' bg-pink-200'),
     },
     {
       label: 'WH$',
       field: 'warehouse.price',
       klass: 'tbl-cell w-12',
+      bg: (jobStates && jobStates['warehouse']=='completed' ? ' bg-blue-200' : ' bg-pink-200'),
     },
   ];
 
@@ -32,6 +35,7 @@ export function getHeaders(profile, date, cat, stores){
     label: 'Order',
     field: 'order',
     klass: 'tbl-cell w-12',
+    bg: (jobStates && jobStates['buyer']=='completed' ? ' bg-blue-200' : ' bg-pink-200'),
   };
 
   const sum = {
@@ -46,66 +50,42 @@ export function getHeaders(profile, date, cat, stores){
     klass: 'tbl-cell w-12',
   };
 
-  console.log("stores=", stores);
+  //console.log("stores=", stores);
   if (profile.role == "warehouse"){
+    headers[2].update = funUpdate;
+    headers[3].update = funUpdate;
+
     headers.push(order);
     headers.push(sum);
-
-    for (let store of stores){
-      headers.push({
-        label: `${store.toUpperCase()}#`,
-        field: `inventory.${store}`,
-        klass: 'tbl-cell w-16',
-      })
-      headers.push({
-        label: `${store.toUpperCase()}$`,
-        field: `orders.${store}`,
-        klass: 'tbl-cell w-16',
-      })
-    }    
-    for (let i of [2, 3, 7, 9, 11, 13, 15, 17, 19]){
-      headers[i].update = funUpdate;
-    }
   }
 
   if (profile.role == "buyer"){
     headers.push(order);
     headers.push(sum);
+    headers[4].update = funUpdate;
+  }
 
-    for (let store of stores){
-      headers.push({
-        label: `${store.toUpperCase()}#`,
-        field: `inventory.${store}`,
+  for (let store of stores){
+    if (store.show){      
+      let n;
+      n = headers.push({
+        label: `${store.name}#`,
+        field: `inventory.${store.name}`,
         klass: 'tbl-cell w-16',
-      })
-      headers.push({
-        label: `${store.toUpperCase()}$`,
-        field: `orders.${store}`,
+        bg: (jobStates && jobStates[store.name]=='completed' ? ' bg-blue-200' : ' bg-pink-200'),
+      });
+      if (profile.role=='store-buyer') headers[n-1].update = funUpdate;
+
+      n = headers.push({
+        label: `${store.name}$`,
+        field: `orders.${store.name}`,
         klass: 'tbl-cell w-16',
+        bg: (jobStates && jobStates[store.name]=='completed' ? ' bg-blue-200' : ' bg-pink-200'),
       })
-    }
-  
-    for (let i of [4, 7, 9, 11, 13, 15, 17, 19]){
-      headers[i].update = funUpdate;
+      if (profile.role=='store-buyer' || profile.role=='buyer') headers[n-1].update = funUpdate;
     }
   }
 
-  if (profile.role == "store-buyer"){
-    const store = profile.stores[0];
-
-    headers.push({
-      label: `${store.toUpperCase()}#`,
-      field: `inventory.${store}`,
-      klass: 'tbl-cell w-16',
-      update: funUpdate
-    })
-    headers.push({
-      label: `${store.toUpperCase()}$`,
-      field: `orders.${store}`,
-      klass: 'tbl-cell w-16',
-      update: funUpdate
-    });
-  }
 
   return headers;
 }

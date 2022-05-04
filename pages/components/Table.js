@@ -8,7 +8,7 @@ export default function Table({ rows, cols }) {
           <thead>
             <tr className=''>
               {cols.map((col, i)=>(
-                <th key={i} className={col.klass}>{col.label}</th>
+                <th key={i} className={col.klass+" "+col.bg}>{col.label}</th>
               ))}
             </tr>
           </thead>
@@ -30,7 +30,7 @@ export default function Table({ rows, cols }) {
               return (
                 <tr key={i} className=''>
                   {cols.map((col, k)=>(
-                    <td key={k} className="tbl-cell">
+                    <td key={k} className={col.klass}>
                       <Cell row={row} col={col}/>  
                     </td>
                   ))}
