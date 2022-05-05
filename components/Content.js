@@ -15,6 +15,7 @@ export default function Content() {
     )
   }
   else{
+    //maybe usememo here?
     const headers = getHeaders(state.profile, state.date, state.cat, state.stores, state.jobStates);
     return (
       <Table cols={headers} rows={state.products}/>

@@ -1,7 +1,7 @@
-export default function ScreenMessage({ msg }) {
+export default function ScreenMessage({ value }) {
 return (
     <div className="h-screen flex justify-center items-center">
-      <h1>{msg}</h1>
+      <h1>{value}</h1>
     </div>
   ) 
 }

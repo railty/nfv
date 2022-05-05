@@ -27,7 +27,8 @@ export default function AppData({ user }) {
 
   const state = { user, profile, date, setDate, cat, setCat, stores, setStores, headers, products, jobStates };
 
-  if (profile && stores && products && jobStates) return (
+  //jobStates is undefined if initStore has not been called yet. this is a potential bug
+  if (profile && stores && products) return (
     <AppContext.Provider value={state}>
       <Layout />
     </AppContext.Provider>    

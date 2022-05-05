@@ -1,13 +1,15 @@
 {
   "name": "nfv",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "fb-login": "firebase login",
+    "fb-init": "firebase init"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
