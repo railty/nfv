@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { signOut } from 'firebase/auth';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser} from "@fortawesome/free-solid-svg-icons";
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import { AppContext } from "./AppData";
-import npm from '../../package.json';
+import npm from '../package.json';
 
 export default function Profile(){
   const state = useContext(AppContext);

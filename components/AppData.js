@@ -1,8 +1,8 @@
-import { db } from '../../firebase';
+import { db } from '../firebase';
 import { createContext, useState, useEffect } from "react";
 import Layout from "./Layout";
 import ScreenMessage from "./ScreenMessage";
-import { dates, cats } from "../utils";
+import { dates, cats } from "../lib/utils";
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import { collection, doc } from 'firebase/firestore';
 

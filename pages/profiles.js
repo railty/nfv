@@ -3,7 +3,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useDocumentData, useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
-import Login from "./components/Login";
+import Login from "../components/Login";
+import ScreenMessage from "../components/ScreenMessage";
 
 const allStores = ['1970', '888', '250', '1080', '1116', '1117', '3135'];
 function Profiles({ user }) {
@@ -40,20 +41,8 @@ function Profiles({ user }) {
     console.log("success");
   }
 
-  if (loading) {
-    return (
-      <div className="h-screen flex justify-center items-center">>
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="h-screen flex justify-center items-center">>
-        <h1>Error: {error}</h1>
-      </div>
-    );
-  }
+  if (loading) return <ScreenMessage value="Initialising User..." />
+  if (error) return <ScreenMessage value={"Error:" + {error}} />
 
   return (
     <div>
@@ -116,20 +105,9 @@ function Profiles({ user }) {
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
-  if (loading) {
-    return (
-      <div className="h-screen flex justify-center items-center">>
-        <h1>Initialising User...</h1>
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="h-screen flex justify-center items-center">>
-        <h1>Error: {error}</h1>
-      </div>
-    );
-  }
+  if (loading) return <ScreenMessage value="Initialising User..." />
+  if (error) return <ScreenMessage value={"Error:" + {error}} />
+
   if (user) {
     return (
       <Profiles user={user}/>

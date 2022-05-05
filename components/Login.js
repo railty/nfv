@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

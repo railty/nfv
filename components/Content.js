@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import Table from "./Table";
-import { initStore } from "../utils";
+import { initStore } from "../lib/utils";
 import { AppContext } from "./AppData";
-import { getHeaders } from "./headers";
+import { getHeaders } from "../lib/headers";
 
 export default function Content() {
   const state = useContext(AppContext);
