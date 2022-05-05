@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "firebase deploy --only hosting",
+    "deploy": "next build && next export && firebase deploy --only hosting",
     "fb-login": "firebase login",
     "fb-init": "firebase init"
   },
