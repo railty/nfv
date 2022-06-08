@@ -12,9 +12,9 @@ export default function Profile(){
   
   return (
     <div className="dropdown dropdown-end p-2">
-      <button tabIndex="0" className="px-4" type="button">
+      <label tabIndex="0" className="px-4 btn btn-ghost">
         <FontAwesomeIcon icon={faUser} fontSize="24" color="blue" />
-      </button>
+      </label>
 
       <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-blue-100 rounded-box w-64 ">
         <li className="border border-b-solid border-b-blue-400"><a>Version: {npm.version}</a></li>

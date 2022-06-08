@@ -12,9 +12,9 @@ export default function Navbar() {
     <div className="navbar bg-base-500">
       <div className="flex-none flex md:hidden">
         <div className="dropdown dropdown p-2">
-          <button tabIndex="0" className="px-4" type="button">
+          <label tabIndex="0" className="px-4 btn btn-ghost">
             <FontAwesomeIcon icon={faBars} fontSize="24" color="blue" />
-          </button>
+          </label>
           <Menu />
         </div>
       </div>

@@ -8,9 +8,14 @@ export default function Content() {
   const state = useContext(AppContext);
 
   if (state.products.length==0){
-    return (
+    if (state.profile.role=='warehouse') return (
       <div className="flex justify-center items-center mt-20 ">
         <button className="btn btn-primary" onClick={()=>initStore(state.date, state.stores)}>Init {state.date}</button>
+      </div>
+    ) 
+    else return (
+      <div className="flex justify-center items-center mt-20 ">
+        <button className="btn btn-primary">Waiting for warehouse to init the day</button>
       </div>
     )
   }
